@@ -316,150 +316,122 @@
             color: var(--primary);
         }
         
-        /* Packages Section */
-        .vertical-packages-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 25px;
-        padding: 20px 0;
-    }
-    
-    .vertical-package-card {
-        position: relative;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-        aspect-ratio: 9/16; /* Standard vertical aspect ratio */
-    }
-    
-    .vertical-package-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    }
-    
-    .package-image-wrapper {
-        position: relative;
-        width: 100%;
-        height: 100%;
-    }
-    
-    .package-vertical-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.5s ease;
-    }
-    
-    .vertical-package-card:hover .package-vertical-image {
-        transform: scale(1.05);
-    }
-    
-    .package-title-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 25px;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
-        color: white;
-    }
-    
-    .package-title-overlay h3 {
-        font-size: 28px;
-        margin: 0;
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        transform: translateY(20px);
-        opacity: 0;
-        transition: all 0.4s ease;
-    }
-    
-    .vertical-package-card:hover .package-title-overlay h3 {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 1200px) {
-        .vertical-packages-grid {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .vertical-packages-grid {
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .package-title-overlay h3 {
-            font-size: 22px;
-        }
-
-   
-    }
-    
-    @media (max-width: 480px) {
-        .vertical-packages-grid {
-            grid-template-columns: 1fr;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-        
-    }
+       
         
         /* Highlights Section */
         .highlights {
-            background-color: #f5f5f5;
-        }
-        
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            height: 300px;
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.3s;
-        }
-        
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-        
-        .gallery-overlay i {
-            color: white;
-            font-size: 40px;
-        }
+    background-color: #f5f5f5;
+    padding: 80px 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 0 20px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    height: 500px; /* Taller container for vertical images */
+    width: 100%;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Image styling to prevent cropping */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Changed from 'cover' to 'contain' to show full image */
+    object-position: center;
+    background-color: #f0f0f0; /* Fallback background */
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+/* Overlay enhancements */
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 30px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.gallery-overlay i {
+    color: white;
+    font-size: 32px;
+    background: rgba(212, 175, 55, 0.9);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: translateY(20px);
+    transition: all 0.3s ease 0.1s;
+}
+
+/* Hover effects */
+.gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-item:hover .gallery-overlay i {
+    transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .gallery-item {
+        height: 450px;
+    }
+}
+
+@media (max-width: 992px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .gallery-item {
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .gallery-item {
+        height: 350px;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    .gallery-item {
+        height: 500px;
+        max-width: 100%;
+    }
+}
         
         /* Testimonials Section */
         .testimonials-grid {
@@ -751,11 +723,11 @@
         <div class="container">
             <nav> 
                 
+                <div class="logo"><img src="new images/logo.jpg" alt="logo"></div>
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
-                    <li><a href="#packages">Packages</a></li>
                     <li><a href="#highlights">Highlights</a></li>
                     <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#booking">Book Now</a></li>
@@ -867,72 +839,26 @@
                         </ul>
                     </div>
                 </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-spray-can"></i>
+                     
+                    </div>
+                    <div class="service-content">
+                        <h3>Make-up & Hairstyling </h3>
+                        <ul>
+                            <li>Make up</li>
+                            <li>Hair install and  styling</li>
+                            <li>gele tying</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
        
         </div>
     </section>
 
-    <!-- Packages Section -->
-    <!-- Packages Section -->
-<section class="section" id="packages">
-    <div class="container">
-        <div class="section-title">
-            <h2>Our Packages</h2>
-            <p>Stunning photography experiences for every occasion</p>
-        </div>
-        <div class="vertical-packages-grid">
-            <!-- Adult Birthday Shoot -->
-            <div class="vertical-package-card">
-                <div class="package-image-wrapper">
-                    <img src="images/adultbirthdayshoot.jpg" alt="Adult Birthday Shoot" class="package-vertical-image">
-                    <div class="package-title-overlay">
-                        <h3>Adult Birthday Shoot</h3>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Family Shoot -->
-            <div class="vertical-package-card">
-                <div class="package-image-wrapper">
-                    <img src="images/familyshoot.jpg" alt="Family Shoot" class="package-vertical-image">
-                    <div class="package-title-overlay">
-                        <h3>Family Shoot</h3>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Kids Birthday -->
-            <div class="vertical-package-card">
-                <div class="package-image-wrapper">
-                    <img src="images/kidsbirthday.jpg" alt="Kids Birthday Shoot" class="package-vertical-image">
-                    <div class="package-title-overlay">
-                        <h3>Kids Birthday Shoot</h3>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Outdoor Shoot -->
-            <div class="vertical-package-card">
-                <div class="package-image-wrapper">
-                    <img src="images/outdoorshoot.jpg" alt="Outdoor Shoot" class="package-vertical-image">
-                    <div class="package-title-overlay">
-                        <h3>Outdoor Shoot</h3>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Wedding Shoot -->
-            <div class="vertical-package-card">
-                <div class="package-image-wrapper">
-                    <img src="images/wedding.jpg" alt="Wedding Shoot" class="package-vertical-image">
-                    <div class="package-title-overlay">
-                        <h3>Wedding Shoot</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+  
 
     <!-- Highlights Section -->
     <section class="section highlights" id="highlights">
@@ -1100,7 +1026,6 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#services">Services</a></li>
-                        <li><a href="#packages">Packages</a></li>
                         <li><a href="#highlights">Portfolio</a></li>
                         <li><a href="#testimonials">Testimonials</a></li>
                         <li><a href="#booking">Contact</a></li>
