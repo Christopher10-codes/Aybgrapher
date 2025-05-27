@@ -56,16 +56,21 @@
             align-items: center;
         }
         
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
         .logo img {
-            width: 70px;
-            height: 70px;
-            margin-right: 10px;
-            border-radius: 50%;
+        width: 70px;           /* Set a base width */
+        height: 70px;          /* Set a base height */
+        object-fit: cover;      /* Ensures image fills the circle */
+        border-radius: 50%;     /* Makes it a circle */
+        display: block;
+        margin: 0 auto;
+        }
+
+        /* Optional: make it responsive on smaller screens */
+        @media (max-width: 600px) {
+        .logo img {
+            width: 60px;
+            height: 60px;
+        }
         }
         
         .nav-links {
@@ -1084,7 +1089,7 @@
             <div class="footer-content">
                 <div class="footer-col">
                     <h3>Aybgrapher</h3>
-                    <p>Professional photography services specializing in weddings, portraits, and special events. Capturing your precious moments with creativity and passion.</p>
+                    <p>Professional photography services, Capturing your precious moments with creativity and passion.</p>
                     <div class="social-links">
                         <a href="https://www.instagram.com/aybgrapher/?hl=en"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.tiktok.com/@aybgrapher?lang=en"><i class="fab fa-tiktok"></i></a>
