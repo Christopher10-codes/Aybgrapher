@@ -781,6 +781,85 @@
         }
 
 
+                .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: all 0.15s ease-in-out;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0069d9;
+        }
+
+        .submit-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .status-message {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.25rem;
+            display: none;
+        }
+
+        .status-message.success {
+            display: block;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-message.error {
+            display: block;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+
 
         
     </style>
@@ -1066,24 +1145,24 @@
                 <p>Fill out the form below and we'll get back to you within 24 hours</p>
             </div>
             <div class="booking-form">
-                <form>
+                <form id="contact-form" action="https://formspree.io/f/meogydnr" method="POST">
                     <div class="form-group">
                         <label for="name">Full Name</label>
-                        <input type="text" id="name" class="form-control" required>
+                        <input type="text" id="name" name="name" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-control" required>
+                        <input type="email" id="email" name="email" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" class="form-control" required>
+                        <input type="tel" id="phone" name="phone" class="form-control" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="message">Tell us about your photoshoot!</label>
-                        <textarea id="message" class="form-control"></textarea>
+                        <textarea id="message" name="message" class="form-control"></textarea>
                     </div>
+                    <div id="form-status" class="status-message"></div>
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
             </div>
@@ -1173,6 +1252,62 @@
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contact-form'); 
+        const statusMessage = document.getElementById('form-status'); 
+        const submitBtn = form.querySelector('.submit-btn'); 
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Disable button and show "Sending..." state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            // Clear previous messages
+            statusMessage.textContent = '';
+            statusMessage.className = 'status-message';
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Success: Show message and auto-hide after 5s
+                    statusMessage.textContent = 'Thank you for your message! We will respond within 24 hours.';
+                    statusMessage.classList.add('success');
+                    form.reset();
+
+                    setTimeout(() => {
+                        statusMessage.textContent = '';
+                        statusMessage.classList.remove('success');
+                    }, 5000); // Hide after 5 seconds
+                } else {
+                    // HTTP error 
+                    throw new Error('Server rejected the submission');
+                }
+            } catch (error) {
+                // Network or fetch error: Show message and auto-hide after 5s
+                statusMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                statusMessage.classList.add('error');
+
+                setTimeout(() => {
+                    statusMessage.textContent = '';
+                    statusMessage.classList.remove('error');
+                }, 5000); // Hide after 5 seconds
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    });
     </script>
     </body>
     </html>
